@@ -20,9 +20,13 @@ app.use(express.json());
 //     credentials: true,
 // }));
 
+app.get('/', (req, res) => {
+    res.send('Hello, World!');
+  });
+
 app.post("/referral", async(req, res) => {
     try {
-        res.status(200).json({ message: 'Referral received!' });
+        //res.status(200).json({ message: 'Referral received!' });
         const user_name = req.body.userName;
         const user_email = req.body.userEmail;
         const course = req.body.course;
@@ -45,7 +49,7 @@ app.post("/referral", async(req, res) => {
             }
         });
 
-        // Sending referral email
+        //Sending referral email
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
@@ -69,7 +73,8 @@ app.post("/referral", async(req, res) => {
             }
         });
 
-        res.status(201).json(referral);
+        res.status(200).json(referral);               
+        //res.status(200).json({ message: 'Form data received successfully' });
     } catch (error) {
         console.error('Error handling request:', error);
         res.status(500).json({ error: 'Internal Server Error' });
