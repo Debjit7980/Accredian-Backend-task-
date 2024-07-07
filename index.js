@@ -8,12 +8,12 @@ dotenv.config();
 
 const prisma = new PrismaClient();
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 
-const allowedOrigins=['https://accredian-frontend-task-omega-eight.vercel.app'];
+const allowedOrigins=['https://accredian-frontend-task-omega-eight.vercel.app','http://localhost:5173'];
 app.use(cors({
     origin: allowedOrigins ,  
     credentials: true,
@@ -47,28 +47,28 @@ app.post('/referral', async (req, res) => {
         });
 
         // Sending referral email
-        const transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: process.env.GMAIL_USER,
-                pass: process.env.GMAIL_PASS
-            }
-        });
+        // const transporter = nodemailer.createTransport({
+        //     service: 'gmail',
+        //     auth: {
+        //         user: process.env.GMAIL_USER,
+        //         pass: process.env.GMAIL_PASS
+        //     }
+        // });
 
-        const mailOptions = {
-            from: process.env.GMAIL_USER,
-            to: ref_email,
-            subject: 'Course Referral',
-            text: `Hi ${ref_name},\n\n${user_name} has referred you to the ${course} course.\n\nBest regards,\nYour Team`
-        };
+        // const mailOptions = {
+        //     from: process.env.GMAIL_USER,
+        //     to: ref_email,
+        //     subject: 'Course Referral',
+        //     text: `Hi ${ref_name},\n\n${user_name} has referred you to the ${course} course.\n\nBest regards,\nYour Team`
+        // };
 
-        transporter.sendMail(mailOptions, (error, info) => {
-            if (error) {
-                console.log('Error sending email:', error);
-            } else {
-                console.log('Email sent:', info.response);
-            }
-        });
+        // transporter.sendMail(mailOptions, (error, info) => {
+        //     if (error) {
+        //         console.log('Error sending email:', error);
+        //     } else {
+        //         console.log('Email sent:', info.response);
+        //     }
+        // });
 
         res.status(201).json(referral);
     } catch (error) {
