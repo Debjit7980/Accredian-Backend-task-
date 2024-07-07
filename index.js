@@ -5,9 +5,10 @@ const { PrismaClient } = require('@prisma/client');
 const nodemailer = require('nodemailer');
 const dotenv = require('dotenv');
 dotenv.config();
-
-const prisma = new PrismaClient();
 const app = express();
+app.use(cors());
+const prisma = new PrismaClient();
+
 const port = process.env.PORT || 8000;
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -19,7 +20,7 @@ app.use(express.json());
 //     credentials: true,
 // }));
 
-app.use(cors());
+
 
 // Endpoint to save referral data
 app.post("/referral", async(req, res) => {
