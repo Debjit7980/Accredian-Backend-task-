@@ -13,7 +13,7 @@ const port = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 
-const allowedOrigins=['http://localhost:3000'];
+const allowedOrigins=['https://accredian-frontend-task-omega-eight.vercel.app'];
 app.use(cors({
     origin: allowedOrigins ,  // Replace with your client's actual origin
     credentials: true,
