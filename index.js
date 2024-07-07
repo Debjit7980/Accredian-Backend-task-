@@ -15,7 +15,7 @@ app.use(express.json());
 
 const allowedOrigins=['https://accredian-frontend-task-omega-eight.vercel.app'];
 app.use(cors({
-    origin: allowedOrigins ,  // Replace with your client's actual origin
+    origin: allowedOrigins ,  
     credentials: true,
 }));
 
@@ -46,7 +46,7 @@ app.post('/referral', async (req, res) => {
             }
         });
 
-        // Send referral email
+        // Sending referral email
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
@@ -81,23 +81,3 @@ app.post('/referral', async (req, res) => {
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
-// const express = require('express');
-// const cors = require('cors');
-// const bodyParser = require('body-parser');
-
-// const app = express();
-// const PORT = 3000;
-
-// app.use(cors());
-// app.use(bodyParser.json());
-
-// app.post('/submit', (req, res) => {
-//     const formData = req.body;
-//     console.log('Form Data:', formData);
-//     res.send('Form data received');
-// });
-
-// app.listen(PORT, () => {
-//     console.log(`Server is running on http://localhost:${PORT}`);
-// });
-
