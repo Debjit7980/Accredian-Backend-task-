@@ -13,16 +13,16 @@ const port = process.env.PORT || 8000;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 
-const allowedOrigins=['https://accredian-frontend-task-omega-eight.vercel.app','http://localhost:5173'];
-app.use(cors({
-    origin: allowedOrigins ,  
-    credentials: true,
-}));
+// const allowedOrigins=['https://accredian-frontend-task-omega-eight.vercel.app','http://localhost:5173'];
+// app.use(cors({
+//     origin: allowedOrigins ,  
+//     credentials: true,
+// }));
 
-// app.use(cors());
+app.use(cors());
 
 // Endpoint to save referral data
-app.post('/referral', async (req, res) => {
+app.post("/referral", async(req, res) => {
     try {
         res.status(200).json({ message: 'Referral received!' });
         const user_name = req.body.userName;
@@ -30,6 +30,7 @@ app.post('/referral', async (req, res) => {
         const course = req.body.course;
         const ref_name = req.body.refName;
         const ref_email = req.body.refEmail;
+        console.log(course);
 
         if (!user_name || !user_email || !course || !ref_name || !ref_email) {
             return res.status(400).json({ error: 'All fields are required' });
