@@ -6,19 +6,18 @@ const nodemailer = require('nodemailer');
 const dotenv = require('dotenv');
 dotenv.config();
 const app = express();
-// app.use(cors());
 const prisma = new PrismaClient();
 
 const port = process.env.PORT || 8000;
-
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 
-const allowedOrigins=['https://accredian-frontend-task-omega-eight.vercel.app','http://localhost:5173'];
-app.use(cors({
-    origin: allowedOrigins ,  
-    credentials: true,
-}));
+// const allowedOrigins=['https://accredian-frontend-task-omega-eight.vercel.app','http://localhost:5173'];
+// app.use(cors({
+//     origin: allowedOrigins ,  
+//     credentials: true,
+// }));
 
 app.get('/', (req, res) => {
     res.send('Hello, World!');
