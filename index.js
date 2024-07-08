@@ -13,11 +13,6 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 
-// const allowedOrigins=['https://accredian-frontend-task-omega-eight.vercel.app','http://localhost:5173'];
-// app.use(cors({
-//     origin: allowedOrigins ,  
-//     credentials: true,
-// }));
 
 app.get('/', (req, res) => {
     res.send('Hello, World!');
@@ -25,15 +20,9 @@ app.get('/', (req, res) => {
 
 app.post("/referral", async(req, res) => {
     try {
-        //res.status(200).json({ message: 'Referral received!' });
         const {user_name, user_email, course, ref_name, ref_email} = req.body;
         console.log(course, user_name, user_email);
-
-        if (!user_name || !user_email || !course || !ref_name || !ref_email) {
-            return res.status(400).json({ error: 'All fields are required' });
-        }
-
-
+        
         const referral = await prisma.referral.create({
             data: {
                 user_name,
