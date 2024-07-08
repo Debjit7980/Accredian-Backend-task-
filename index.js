@@ -56,8 +56,7 @@ app.post("/referral", async(req, res) => {
                 console.log('Email sent:', info.response);
             }
         });
-
-        //res.status(200).json(referral);               
+          
         res.status(200).json({ message: 'Form data received successfully' });
     } catch (error) {
         console.error('Error handling request:', error);
