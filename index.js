@@ -20,18 +20,22 @@ app.get('/', (req, res) => {
 
 app.post("/referral", async(req, res) => {
     try {
-        const {user_name, user_email, course, ref_name, ref_email} = req.body;
-        console.log(course, user_name, user_email);
+        const user_name = req.body.userName;
+        const user_email = req.body.userEmail;
+        const course=req.body.course;
+        const ref_email=req.body.refEmail;
+        const ref_name=req.body.refName;
+        console.log(course, ref_name, ref_email);
         
-        // const referral = await prisma.referral.create({
-        //     data: {
-        //         user_name,
-        //         user_email,
-        //         course,
-        //         ref_name,
-        //         ref_email
-        //     }
-        // });
+        const referral = prisma.referral.create({
+            data: {
+                user_name,
+                user_email,
+                course,
+                ref_name,
+                ref_email
+            }
+        });
 
         //Sending referral email
         const transporter = nodemailer.createTransport({
