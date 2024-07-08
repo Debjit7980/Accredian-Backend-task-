@@ -21,41 +21,41 @@ app.get('/', (req, res) => {
 app.post("/referral", async(req, res) => {
     try {
         const {user_name, user_email, course, ref_name, ref_email} = req.body;
-        //console.log(course, user_name, user_email);
+        console.log(course, user_name, user_email);
         
-        const referral = await prisma.referral.create({
-            data: {
-                user_name,
-                user_email,
-                course,
-                ref_name,
-                ref_email
+        // const referral = await prisma.referral.create({
+        //     data: {
+        //         user_name,
+        //         user_email,
+        //         course,
+        //         ref_name,
+        //         ref_email
+        //     }
+        // });
+
+        //Sending referral email
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: process.env.GMAIL_USER,
+                pass: process.env.GMAIL_PASS
             }
         });
 
-        //Sending referral email
-        // const transporter = nodemailer.createTransport({
-        //     service: 'gmail',
-        //     auth: {
-        //         user: process.env.GMAIL_USER,
-        //         pass: process.env.GMAIL_PASS
-        //     }
-        // });
+        const mailOptions = {
+            from: process.env.GMAIL_USER,
+            to: ref_email,
+            subject: 'Course Referral',
+            text: `Hi ${ref_name},\n\n${user_name} has referred you to the ${course} course.\n\nBest regards,\nYour Team`
+        };
 
-        // const mailOptions = {
-        //     from: process.env.GMAIL_USER,
-        //     to: ref_email,
-        //     subject: 'Course Referral',
-        //     text: `Hi ${ref_name},\n\n${user_name} has referred you to the ${course} course.\n\nBest regards,\nYour Team`
-        // };
-
-        // transporter.sendMail(mailOptions, (error, info) => {
-        //     if (error) {
-        //         console.log('Error sending email:', error);
-        //     } else {
-        //         console.log('Email sent:', info.response);
-        //     }
-        // });
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                console.log('Error sending email:', error);
+            } else {
+                console.log('Email sent:', info.response);
+            }
+        });
           
         res.status(200).json({ message: 'Form data received successfully' });
     } catch (error) {
