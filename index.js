@@ -25,7 +25,7 @@ app.post("/referral", async(req, res) => {
         const course=req.body.course;
         const ref_email=req.body.refEmail;
         const ref_name=req.body.refName;
-        console.log(course, ref_name, ref_email);
+        console.log(user_name, user_email, course, ref_name, ref_email);
         
         const referral = prisma.referral.create({
             data: {
