@@ -8,7 +8,7 @@ dotenv.config();
 const app = express();
 const prisma = new PrismaClient();
 
-const port = process.env.PORT || 8000;
+const port = 8000;
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
